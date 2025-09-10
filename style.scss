@@ -1,0 +1,108 @@
+
+.block_banner_hero{
+    padding: 0;
+    height: 100vh;
+    position: relative;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    .titolo_blocco_banner{
+        position:relative;
+        z-index:2;
+       // align-self: end;
+    }
+    .banner_cta{
+        position:relative;
+        display: flex;
+        align-self: center;
+        margin-bottom: 3rem;
+        position: absolute;
+        bottom: 2rem;
+        z-index:2;
+        border:0px;
+    }
+    img{
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    h1{
+        @include media-breakpoint-down(lg) { 
+            font-size: 5rem;
+            line-height: 6.875rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+    }
+}
+
+
+
+/* Youtube iframe as background */
+
+.yt-embed, .yt-embed-hero, .block_banner_hero .blocco_immagini_sfalsate_video {
+    max-width: 100% !important;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+  
+    iframe, video {
+      width: 100%;
+      height: 100%;
+      transform: scale(1.2);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100vw;
+      height: 100vh;
+      transform: translate(-50%, -50%);
+    }
+
+    video{
+        object-fit:cover;
+    }
+
+    &:before{
+        content:"";
+        position: absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height: 100%;
+        background-color: rgba(0,0,0,.3);
+        z-index: 1;
+    }
+  
+//     .yt-embed-overlay {
+//       position: absolute;
+//       top: 0;
+//       left: 0;
+//       width: 100%;
+//       height: 100%;
+//       background: 
+//   rgba(0,0,0,.8);
+//     }
+}
+
+@media (min-aspect-ratio: 16/9) {
+    .yt-embed iframe, .yt-embed-hero iframe {
+      /* height = 100 * (9 / 16) = 56.25 */
+      height: 56.25vw;
+    }
+  }
+      
+  @media (max-aspect-ratio: 16/9) {
+    .yt-embed iframe, .yt-embed-hero iframe {
+      /* width = 100 / (9 / 16) = 177.777777 */
+      //width: 177.78vh;
+      width: 200.78vh;
+    }
+  }
