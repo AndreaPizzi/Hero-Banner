@@ -1,0 +1,71 @@
+
+
+<div id="{{ block.id }}-blocco_hero_banner" class="fadeOnScreen container-fluid block_banner_hero block_publifarm">
+   
+{% if fields.immagine_di_sfondo %}
+    <img class="blocco_hero_banner_img" src="{{ fields.immagine_di_sfondo.url }}" alt="{{ fields.immagine_di_sfondo.title }}">
+{% endif %}
+    {% if fields.heading_titolo_blocco_banner == 'h1' %}
+            <h1 style="color:{{ fields.colore_testo }};" class="splitting-txt titolo_blocco_banner  link_nav_big ">{{ fields.titolo_blocco }}</h1>
+    {% elseif fields.heading_titolo_blocco_banner == 'h2' %}
+            <h2 style="color:{{ fields.colore_testo }};" class="splitting-txt {{ fields.heading_titolo_blocco_banner }} titolo_blocco_banner link_nav_big">{{ fields.titolo_blocco }}</h2>
+    {% endif %}
+    {% if fields.txt_cta %}
+                <a title="{{fields.url_cta.title}}" href="{{fields.url_cta.url}}" class="banner_cta boxed_btn " target="{{fields.url_cta.target}}" > <span>{{fields.txt_cta}}</span> </a>
+    {% endif %}
+    {% if fields.video_background_mp4 %}
+      {% include 'partial/html5_videoplayer.twig' with {'mp4':  fields.video_background_mp4 } %}
+    {% endif %}
+    {% if fields.video_background %}
+
+    <div class="yt-embed-hero">
+    <div data-id="{{fields.video_background}}" id="yt-embed-player" class="yt-embed-player"></div>
+    <div class="yt-embed-overlay"></div>
+  </div>
+  <script async src="https://www.youtube.com/iframe_api"></script>
+
+   <script>
+    // Global variable to keep the player in
+    // So we can access it later if needed.
+    window.ytPlayer = null;
+
+    // Global event handler that the IFrame Player API will call once ready.
+    window.onYouTubeIframeAPIReady = () => {
+      let playerElement = document.querySelector("#yt-embed-player");
+      window.ytPlayer = new YT.Player('yt-embed-player', {
+        // Video ID of the video we want to show. We will get this from data-id we set above
+        videoId: playerElement.dataset.id,
+
+        // Various settings and parameters for the player.
+        // The required parameters for our purpose is: mute, loop and autoplay.
+        // origin may be required for the player to work properly.
+        playerVars: {
+          controls: 0,
+          showinfo: 0,
+          modestbranding: 0,
+          wmode: 'transparent',
+          mute: 1,
+          progressBar: false,
+          loop: 1,
+          rel: 0,
+          autoplay: 1,
+          origin: window.location.hostname
+        },
+        events: {
+          // onReady() => called when the player is ready. Mute the video. It should already be muted, but this is just to make sure,
+          // as the playerVars gets changed often.
+          'onReady': (e) => { e.target.mute(); },
+
+          // onStateChange => called whenever the video state changes. See the API Reference for the different states.
+          // Play the video again when we detect that it has ended to loop.
+          'onStateChange': (e) => {
+            if(e.data === YT.PlayerState.ENDED) {
+              e.target.playVideo();
+            }
+          },
+        }
+      })
+    }
+  </script>
+{% endif %}
+</div>
