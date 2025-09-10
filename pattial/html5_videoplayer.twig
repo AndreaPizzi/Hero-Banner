@@ -1,0 +1,74 @@
+<div class="fadeOnScreen yt-embed-img_anteprima_1 blocco_immagini_sfalsate_video" >
+    <video {% if post.meta('video_attiva_audio') %} id="video_audio_btn" {% endif %} width="560" height="315" autoplay loop muted playsinline style="pointer-events: none;" class="html5_video_player">
+        <source src="{{mp4}}" type="video/mp4" />
+    </video>
+    <div class="yt-embed-overlay"></div>
+    
+    {% if post.meta('video_attiva_audio') %}
+    <!-- button to mute -->
+    <button onclick="muteAudio()" type="button" class="toggle_audio d-flex justify-content-center align-items-center" id="btn_Audio">
+          {# <span class="dashicons dashicons-controls-volumeoff"></span> #}
+          <span></span>
+      </button>
+    <!-- button style -->
+    <style>
+
+    .blocco_immagini_sfalsate_video{
+        position: relative;
+    }
+    .toggle_audio{
+        background-color: #fff7be;
+        border: 0px;
+        border-radius: 2rem;
+        border: 2px solid #353535;
+        padding: .5rem;
+            position: absolute;
+    right: 2rem;
+    bottom: 2rem;
+    
+    } 
+    .toggle_audio::before{
+        font-family: "dashicons";
+        display:block;
+            font-size: 2rem;
+    line-height: 2rem;
+    height: 2rem;
+    width: 2rem;
+    text-align: center;
+    content: "\f520";
+    color:#353535;
+    }
+
+.audio_on.toggle_audio::before{
+
+    content: "\f521";
+    }
+
+    @media screen and (max-width: 992px) {
+        .html5_video_player {
+            max-width:100%;
+            width:100%;
+        }
+
+        .toggle_audio::before {
+            font-size: 1.3rem;
+            line-height: 1rem;
+            height: 1rem;
+            width: 1rem;
+        }
+    }
+    </style>
+    <!-- javascript code -->
+    <script>
+        // get element from html
+        var audioT = document.getElementById("video_audio_btn");
+        var audioBTN = document.getElementById("btn_Audio");
+        //  use muted to pause music
+        function muteAudio() {
+            audioT.muted = !audioT.muted;
+             audioBTN.classList.toggle("audio_on");
+        }
+    </script>
+    
+    {% endif %}
+</div>
